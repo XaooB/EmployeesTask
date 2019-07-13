@@ -12,16 +12,7 @@
         <th>Akcja</th>
       </tr>
       <tr v-for="employee in employees" class="employees-list__list-row">
-        <td>{{employee.id}}</td>
-        <td>{{employee.name}}</td>
-        <td>{{employee.address.street}} {{employee.address.suite}} {{employee.address.city}}</td>
-        <td>{{employee.phone}}</td>
-        <td>
-          <a :href="`mailto:${ employee.email }`">{{employee.email}}</a>
-        </td>
-        <td>
-          <EditButton :id="employee.id" />
-        </td>
+        <ListItem :employee="employee" />
       </tr>
     </table>
   </div>
@@ -29,11 +20,14 @@
 <script>
 import axios from "axios";
 import EditButton from "../components/EditButton";
+import ListItem from "../pages/EmployeesListItem";
 
 export default {
   data() {
     return {
       loading: false,
+      editing: false,
+      selectedID: 0,
       employees: []
     };
   },
@@ -46,7 +40,6 @@ export default {
   methods: {
     fetchData() {
       this.loading = true;
-
       axios
         .get("https://jsonplaceholder.typicode.com/users")
         .then(({ data }) => {
@@ -58,11 +51,14 @@ export default {
     }
   },
   components: {
-    EditButton
+    ListItem
   }
 };
 </script>
 <style lang="scss" scoped>
+input {
+  width: 100%;
+}
 .employees-list {
   &__header {
     font-size: 20px;
