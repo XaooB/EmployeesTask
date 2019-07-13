@@ -73,19 +73,61 @@ export default {
   }
 
   &__list-header {
+    position: absolute;
+    left: -9999px;
     background: #f7f8f9;
     border-bottom: 1px solid #999d9d;
-
     th {
       padding: 8px;
+    }
+    @media (min-width: 736px) {
+      position: initial;
     }
   }
 
   &__list-row {
     background: #fff;
-
+    position: relative;
     td {
-      padding: 8px;
+      position: relative;
+      display: block;
+      padding: 8px 8px 8px 70px;
+      &:before {
+        position: absolute;
+        top: 8px;
+        font-weight: bold;
+        left: 0;
+      }
+      &:nth-of-type(1):before {
+        content: "ID:";
+      }
+      &:nth-of-type(2):before {
+        content: "Name:";
+      }
+      &:nth-of-type(3):before {
+        content: "Address:";
+      }
+      &:nth-of-type(4):before {
+        content: "Phone:";
+      }
+      &:nth-of-type(5):before {
+        content: "Email:";
+      }
+      @media (min-width: 736px) {
+        padding: 8px;
+        display: table-cell;
+        &:before {
+          content: "" !important;
+        }
+      }
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid black;
+    }
+    @media (min-width: 736px) {
+      &:not(:last-child) {
+        border: none;
+      }
     }
   }
 }
