@@ -9,6 +9,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Email</th>
+        <th>Akcja</th>
       </tr>
       <tr v-for="employee in employees" class="employees-list__list-row">
         <td>{{employee.id}}</td>
@@ -18,12 +19,16 @@
         <td>
           <a :href="`mailto:${ employee.email }`">{{employee.email}}</a>
         </td>
+        <td>
+          <EditButton :id="employee.id" />
+        </td>
       </tr>
     </table>
   </div>
 </template>
 <script>
 import axios from "axios";
+import EditButton from "../components/EditButton";
 
 export default {
   data() {
@@ -51,6 +56,9 @@ export default {
           this.loading = false;
         });
     }
+  },
+  components: {
+    EditButton
   }
 };
 </script>
@@ -112,6 +120,9 @@ export default {
       }
       &:nth-of-type(5):before {
         content: "Email:";
+      }
+      &:nth-of-type(6):before {
+        content: "Akcja:";
       }
       @media (min-width: 736px) {
         padding: 8px;
